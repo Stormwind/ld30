@@ -1,0 +1,20 @@
+table {
+  border-collapse: collapse;
+  display: inline-block;
+  margin: 64px;
+}
+
+td {
+  border: black 1px solid;
+  width: 64px; /* make this better */
+  height: 64px; /* make this better */
+}
+
+#status li {
+  display: inline-block;
+  margin-right: 64px; /* make this better */
+}
+
+#status .value {
+  font-weight: bolder;
+}
