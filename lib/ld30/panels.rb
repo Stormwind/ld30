@@ -17,7 +17,7 @@ module Ld30
     end
 
     def set_field(panel, row, column, value)
-      field(panel, row, column).add_class "person"
+      field(panel, row, column).add_class value
     end
 
 
