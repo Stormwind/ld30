@@ -11,7 +11,7 @@ transport system. This system makes it possible for persons to travel huge
 distances in almost no time.  
 Unfortanly it needs three memory blocks of the transport system to contain a
 whole person. And the electrical inderferences are still a problem. So we need
-to sets of memory blocks to not to overload the buffer system.  
+two sets of memory blocks not to overload the buffer system.  
 Your task it is to connect the persons memory blocks manually to get the people
 save out of your portal.
 
