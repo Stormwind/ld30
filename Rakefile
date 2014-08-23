@@ -1,4 +1,5 @@
 require 'opal'
+require "opal-jquery"
 
 desc "Build othe game"
 task :build do
