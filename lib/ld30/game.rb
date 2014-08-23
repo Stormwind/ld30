@@ -74,13 +74,77 @@ module Ld30
           (c_position[1] == f_position[1]-1 or
             c_position[1] == f_position[1]+1))
       )
-
-        puts "Neighbors"
+        # Find connected fields (= same class) and return a list
+        # But use the class of the other field, because of exchange!!!
+        neighbors_field1 =
+          connected_fields(c_position, f_position, field2.class_name)
+        neighbors_field2 =
+          connected_fields(f_position, c_position, field1.class_name)
+        puts "Neighbors:"
+        puts neighbors_field1.inspect
+        puts neighbors_field2.inspect
 
         true
       else
         false
       end
+    end
+
+    def connected_fields(position, old_position, value)
+      # Strip the "clicked" from the class name
+      value = value.chomp("clicked").strip
+
+      found                 = Array()
+      found.push position
+      frontier              = Array()
+      frontier.push(position)
+      visited               = {}
+      visited[position]     = true
+
+      unless @panels.field(position[0], position[1], position[2]).
+          class_name.include? value
+
+        visited[old_position] = true
+      end
+
+      while not frontier.empty?
+        current = frontier.pop()
+        neighbors(current).each do |successor|
+          unless visited.key? successor
+            visited[successor] = true
+
+            # see if it has the same class
+            if @panels.field(successor[0], successor[1], successor[2]).
+                class_name.include? value
+
+              # add to found list
+              frontier.push successor
+              found.push successor
+            end
+          end
+        end
+      end
+
+      found
+    end
+
+    def neighbors(position)
+      fields = []
+      # x+1; x-1; y+1; y-1
+      unless position[1] == (FIELD_SIZE-1)
+        fields.push [position[0], position[1]+1, position[2]]
+      end
+      unless position[1] == 0
+        fields.push [position[0], position[1]-1, position[2]]
+      end
+      unless position[2] == (FIELD_SIZE-1)
+        fields.push [position[0], position[1], position[2]+1]
+      end
+      unless position[2] == 0
+        fields.push [position[0], position[1], position[2]-1]
+      end
+
+      fields
     end
 
   end
