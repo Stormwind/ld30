@@ -58,6 +58,31 @@ module Ld30
       end
     end
 
+    # returns true, if exchange happend, else false
+    def exchange(field1, field2)
+      # Is it next to the current element? <== how figure this out?
+      c_position = @panels.position_of field1
+      f_position = @panels.position_of field2
+      # Must be on the same panel
+      # x+1, x-1, y=y
+      # y+1, y-1, x=x
+      if ((c_position[0] == f_position[0]) and
+        (c_position[1] == f_position[1] and
+          (c_position[2] == f_position[2]-1 or
+            c_position[2] == f_position[2]+1)) or
+        (c_position[2] == f_position[2] and
+          (c_position[1] == f_position[1]-1 or
+            c_position[1] == f_position[1]+1))
+      )
+
+        puts "Neighbors"
+
+        true
+      else
+        false
+      end
+    end
+
   end
 
 end

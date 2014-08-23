@@ -20,6 +20,13 @@ module Ld30
       field(panel, row, column).add_class value
     end
 
+    def position_of(field)
+      # use constants instead of numbers
+      [1-field.parent.parent.parent.find("~ table").count,
+        7-field.parent.find("~ tr").count,
+        7-field.find("~ td").count]
+      end
+
   end
 
 end

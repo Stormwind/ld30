@@ -14,5 +14,20 @@ puts game.inspect
 # Events
 
 Element.find('#panels').on(:click, 'td') do |event|
-  event.current_target.add_class "clicked"
+  field = event.current_target
+  # Is already another element clicked?
+  clicked = Element.find('.clicked')
+  success = false
+  unless clicked.empty?
+    # Trigger the exchange of the objects
+    success = game.exchange(field, clicked)
+    
+    # Remove "clicked"-class from the fields
+    clicked.remove_class "clicked"
+  end
+
+
+  # Mark current field as "clicked"
+  field.add_class "clicked" unless success == true
 end
+
