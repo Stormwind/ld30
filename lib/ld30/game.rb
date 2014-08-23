@@ -3,7 +3,7 @@ module Ld30
   class Game
 
     def initialize
-      @panels = Array.new(2) { Array.new(8) { Array.new(8)}}
+      @panels = Panels.new
 
       # start a new game
       # current level is 1
@@ -29,16 +29,13 @@ module Ld30
     end
 
     def random_empty_field= value
-      gnrtr = Random.new
       # find a random empty field
-      field = nil
       loop do
-        panel_no = gnrtr.rand(2)
-        line_no  = gnrtr.rand(8)
-        field_no = gnrtr.rand(8)
-        if @panels[panel_no][line_no][field_no].nil?
-          @panels[panel_no][line_no][field_no] = value
-          # put the person on the real gamefield
+        panel_no = rand(2)
+        line_no  = rand(8)
+        field_no = rand(8)
+        if @panels.field(panel_no, line_no, field_no).class_name.empty?
+          @panels.set_field(panel_no,line_no, field_no, value)
           break
         end
       end
