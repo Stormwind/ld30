@@ -18,3 +18,7 @@ td {
 #status .value {
   font-weight: bolder;
 }
+
+.clicked {
+  border: green 2px dashed;
+}

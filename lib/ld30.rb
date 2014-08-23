@@ -10,3 +10,9 @@ require 'ld30/panels'
 game = Ld30::Game.new
 
 puts game.inspect
+
+# Events
+
+Element.find('#panels').on(:click, 'td') do |event|
+  event.current_target.add_class "clicked"
+end

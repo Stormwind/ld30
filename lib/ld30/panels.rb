@@ -20,7 +20,6 @@ module Ld30
       field(panel, row, column).add_class value
     end
 
-
   end
 
 end
