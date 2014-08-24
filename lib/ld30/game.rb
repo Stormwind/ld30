@@ -98,11 +98,7 @@ module Ld30
         end
 
         # Do the exchange
-        field2_value = field2.class_name
-        @panels.set_field(
-          f_position[0], f_position[1], f_position[2], field1.class_name)
-        @panels.set_field(
-          c_position[0], c_position[1], c_position[2], field2_value)
+        change_field_contents(f_position, c_position)
 
         # join the lists, if both have more then 3 entries
         if neighbor_fields[0].count >= 3 and neighbor_fields[1].count >= 3
@@ -261,6 +257,13 @@ module Ld30
           end
         end
       end
+    end
+
+    def change_field_contents(field1, field2)
+      field2_value = @panels.field(field2[0], field2[1], field2[2]).class_name
+      @panels.set_field(field2[0], field2[1], field2[2],
+        @panels.field(field1[0], field1[1], field1[2]).class_name)
+      @panels.set_field(field1[0], field1[1], field1[2], field2_value)
     end
 
   end
