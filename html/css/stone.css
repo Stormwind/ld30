@@ -1,20 +1,53 @@
 /* later, there will be more persons */
-.person {
-  background-color: blue;
+/* ["lisa", "ralf", "otto", "bernadette", "fridolin",
+                   "michael", "susanne", "karl", "josephine", "mia"] */
+.lisa, .ralf, .otto, .bernadette, .fridolin, .michael, .susanne, .karl,
+    .josephine, .mia {
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
+
+.lisa {
+  background: url(../graphics/lisa.svg);
+}
+.ralf {
+  background: url(../graphics/ralf.svg);
+}
+.otto {
+  background: url(../graphics/otto.svg);
+}
+.bernadette {
+  background: url(../graphics/bernadette.svg);
+}
+.fridolin {
+  background: url(../graphics/fridolin.svg);
+}
+.michael {
+  background: url(../graphics/michael.svg);
+}
+.susanne {
+  background: url(../graphics/susanne.svg);
+}
+.karl {
+  background: url(../graphics/karl.svg);
+}
+.josephine {
+  background: url(../graphics/josephine.svg);
+}
+.mia {
+  background: url(../graphics/mia.svg);
+}
+
 
 .indef1 {
   background-color: yellow;
 }
-
 .indef2 {
   background-color: orange;
 }
-
 .indef3 {
   background-color: red;
 }
-
 .indef4 {
   background-color: purple;
 }

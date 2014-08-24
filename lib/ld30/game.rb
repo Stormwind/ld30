@@ -7,6 +7,9 @@ module Ld30
                    "intrchngr5"]
     PANELS_COUNT = 2
     FIELD_SIZE   = 8
+    PERSONS      = ["lisa", "ralf", "otto", "bernadette", "fridolin",
+                   "michael", "susanne", "karl", "josephine", "mia"]
+    LEVEL_MAX    = 10
 
     def initialize
       @panels = Panels.new
@@ -20,11 +23,14 @@ module Ld30
     def start_level number
       cleanup_level unless number == 1
 
+      # Make a local clone of the persons list
+      persons_clone = PERSONS.shuffle
       # Number of people in the level is equal to the level number
-      number.downto(1).each do |person|
+      number.downto(1).each do
+        person = persons_clone.pop
         (1..3).each do
           # spread person over empty fields
-          self.random_empty_field = "person"
+          self.random_empty_field = person
         end
       end
 
