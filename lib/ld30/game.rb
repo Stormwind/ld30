@@ -84,6 +84,12 @@ module Ld30
         @panels.set_field(
           c_position[0], c_position[1], c_position[2], field2_value)
 
+        # join the lists, if both have more then 3 entries
+        if neighbor_fields[0].count >= 3 and neighbor_fields[1].count >= 3
+          neighbor_fields[0] = (neighbor_fields[0] + neighbor_fields[1]).uniq
+          neighbor_fields[1] = Array()
+        end
+
         # Plop all fields array, if we have at least 3 entries
         neighbor_fields.each do |fields|
           if fields.count >= 3
@@ -195,9 +201,11 @@ module Ld30
           end
         end
         # then refill the row
+puts entries.inspect
         if x_direction == 1 or y_direction == 1
           field = FIELD_SIZE-1
           entries.reverse.each do |entry|
+puts entry.inspect
             if y_direction == 0
               @panels.set_field(panel_no, field, row, entry)
             else
@@ -208,6 +216,7 @@ module Ld30
         else
           field = 0
           entries.each do |entry|
+puts entry.inspect
             if y_direction == 0
               @panels.set_field(panel_no, field, row, entry)
             else
@@ -217,6 +226,7 @@ module Ld30
           end
         end
       end
+puts "the end is near"
       # Fill up all the empty fields with indeferences
       fill_up_empty_fields
     end
