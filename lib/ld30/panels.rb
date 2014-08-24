@@ -17,7 +17,7 @@ module Ld30
     end
 
     def set_field(panel, row, column, value)
-      field(panel, row, column).add_class value
+      field(panel, row, column).class_name = value
     end
 
     def position_of(field)

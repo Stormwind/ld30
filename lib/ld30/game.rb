@@ -76,13 +76,35 @@ module Ld30
       )
         # Find connected fields (= same class) and return a list
         # But use the class of the other field, because of exchange!!!
-        neighbors_field1 =
+        neighbor_fields = Array()
+        neighbor_fields[0] =
           connected_fields(c_position, f_position, field2.class_name)
-        neighbors_field2 =
+        neighbor_fields[1] =
           connected_fields(f_position, c_position, field1.class_name)
-        puts "Neighbors:"
-        puts neighbors_field1.inspect
-        puts neighbors_field2.inspect
+
+        # End here, if none of the arrays has at least 3 entries
+        if(neighbor_fields[0].count < 3 and neighbor_fields[1].count < 3)
+          return false 
+        end
+
+        # Do the exchange
+        field2_value = field2.class_name
+        @panels.set_field(
+          f_position[0], f_position[1], f_position[2], field1.class_name)
+        @panels.set_field(
+          c_position[0], c_position[1], c_position[2], field2_value)
+
+        # Plop all fields array, if we have at least 3 entries
+        neighbor_fields.each do |fields|
+          if fields.count >= 3
+            fields.each do |field|
+              # polppeldops
+              @panels.set_field(field[0], field[1], field[2], "")
+            end
+            fill_up_fields(fields, c_position[0],
+              c_position[1]-f_position[1],  c_position[2]-f_position[2])
+          end
+        end
 
         true
       else
@@ -146,6 +168,67 @@ module Ld30
 
       fields
     end
+
+    def fill_up_fields(fields, panel_no, x_direction, y_direction)
+      # get all x
+      #                   x  y
+      # up    -> down  :  1  0
+      # down  -> up    : -1  0
+      # left  -> right :  0  1
+      # right -> left  :  0 -1
+      rows = Array()
+      if y_direction == 0
+        position = 2
+      else 
+        position = 1
+      end
+      fields.each do |field|
+        rows.push field[position]
+      end
+      rows = rows.uniq
+
+      rows.each do |row|
+        # Get all field entries
+        entries = Array()
+        (0..(FIELD_SIZE-1)).each do |field|
+          if y_direction == 0
+            entry = @panels.field(panel_no, field, row).class_name
+          else
+            entry = @panels.field(panel_no, row, field).class_name
+          end
+          entries.push entry unless entry.empty?
+          # then empty field
+          if y_direction == 0
+            @panels.set_field(panel_no, field, row, "")
+          else
+            @panels.set_field(panel_no, row, field, "")
+          end
+        end
+        # then refill the row
+        if x_direction == 1 or y_direction == 1
+          field = FIELD_SIZE-1
+          entries.reverse.each do |entry|
+            if y_direction == 0
+              @panels.set_field(panel_no, field, row, entry)
+            else
+              @panels.set_field(panel_no, row, field, entry)
+            end
+            field = field-1
+          end
+        else
+          field = 0
+          entries.each do |entry|
+            if y_direction == 0
+              @panels.set_field(panel_no, field, row, entry)
+            else
+              @panels.set_field(panel_no, row, field, entry)
+            end
+            field = field+1
+          end
+        end
+      end
+    end
+
 
   end
 
