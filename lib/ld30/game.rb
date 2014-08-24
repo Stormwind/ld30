@@ -29,6 +29,26 @@ module Ld30
       # Fill up all the empty fields with indeferences
       fill_up_empty_fields
 
+      # get random id-less field in given panel and place interchanger there
+      interchanger = [
+        ["intrchngr1p1", "intrchngr2p1", "intrchngr3p1", "intrchngr4p1",
+          "intrchngr5p1"],
+        ["intrchngr1p2", "intrchngr2p2", "intrchngr3p2", "intrchngr4p2",
+          "intrchngr5p2"]
+      ]
+      (0..1).each do |panel_no|
+        interchanger[panel_no].each do |changer|
+          loop do
+            row_no    = rand(FIELD_SIZE)
+            column_no = rand(FIELD_SIZE)
+            if @panels.field(panel_no, row_no, column_no).id.empty?
+              @panels.field(panel_no, row_no, column_no).id = changer
+              break
+            end
+          end
+        end
+      end
+
     end
 
     def cleanup_level
@@ -201,11 +221,9 @@ module Ld30
           end
         end
         # then refill the row
-puts entries.inspect
         if x_direction == 1 or y_direction == 1
           field = FIELD_SIZE-1
           entries.reverse.each do |entry|
-puts entry.inspect
             if y_direction == 0
               @panels.set_field(panel_no, field, row, entry)
             else
@@ -216,7 +234,6 @@ puts entry.inspect
         else
           field = 0
           entries.each do |entry|
-puts entry.inspect
             if y_direction == 0
               @panels.set_field(panel_no, field, row, entry)
             else
@@ -226,7 +243,6 @@ puts entry.inspect
           end
         end
       end
-puts "the end is near"
       # Fill up all the empty fields with indeferences
       fill_up_empty_fields
     end
