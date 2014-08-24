@@ -35,11 +35,9 @@ module Ld30
       (0..1).each do |panel_no|
         INTERCHANGER.each do |changer|
           loop do
-            row_no    = rand(FIELD_SIZE)
-            column_no = rand(FIELD_SIZE)
-            if @panels.field(panel_no, row_no, column_no).id.empty?
-              @panels.field(panel_no, row_no, column_no).id =
-                changer+"p"+(panel_no+1).to_s
+            position = [panel_no, rand(FIELD_SIZE), rand(FIELD_SIZE)]
+            if @panels.field(position).id.empty?
+              @panels.field(position).id = changer+"p"+(panel_no+1).to_s
               break
             end
           end
@@ -55,11 +53,9 @@ module Ld30
     def random_empty_field= value
       # find a random empty field
       loop do
-        panel_no  = rand(PANELS_COUNT)
-        row_no    = rand(FIELD_SIZE)
-        column_no = rand(FIELD_SIZE)
-        if @panels.field(panel_no, row_no, column_no).class_name.empty?
-          @panels.set_field(panel_no, row_no, column_no, value)
+        position = [rand(PANELS_COUNT), rand(FIELD_SIZE), rand(FIELD_SIZE)]
+        if @panels.field(position).class_name.empty?
+          @panels.set_field(position, value)
           break
         end
       end
@@ -68,26 +64,24 @@ module Ld30
     # returns true, if exchange happend, else false
     def exchange(field1, field2)
       # Is it next to the current element? <== how figure this out?
-      c_position = @panels.position_of field1
-      f_position = @panels.position_of field2
+      pos_f1 = @panels.position_of field1
+      pos_f2 = @panels.position_of field2
       # Must be on the same panel
       # x+1, x-1, y=y
       # y+1, y-1, x=x
-      if ((c_position[0] == f_position[0]) and
-        (c_position[1] == f_position[1] and
-          (c_position[2] == f_position[2]-1 or
-            c_position[2] == f_position[2]+1)) or
-        (c_position[2] == f_position[2] and
-          (c_position[1] == f_position[1]-1 or
-            c_position[1] == f_position[1]+1))
+      if ((pos_f1[0] == pos_f2[0]) and
+        (pos_f1[1] == pos_f2[1] and
+          (pos_f1[2] == pos_f2[2]-1 or pos_f1[2] == pos_f2[2]+1)) or
+        (pos_f1[2] == pos_f2[2] and
+          (pos_f1[1] == pos_f2[1]-1 or pos_f1[1] == pos_f2[1]+1))
       )
         # Find connected fields (= same class) and return a list
         # But use the class of the other field, because of exchange!!!
         neighbor_fields = Array()
         neighbor_fields[0] =
-          connected_fields(c_position, f_position, field2.class_name)
+          connected_fields(pos_f1, pos_f2, field2.class_name)
         neighbor_fields[1] =
-          connected_fields(f_position, c_position, field1.class_name)
+          connected_fields(pos_f2, pos_f1, field1.class_name)
 
         # End here, if none of the arrays has at least 3 entries
         if(neighbor_fields[0].count < 3 and neighbor_fields[1].count < 3)
@@ -95,7 +89,7 @@ module Ld30
         end
 
         # Do the exchange
-        change_field_contents(f_position, c_position)
+        change_field_contents(pos_f2, pos_f1)
 
         # join the lists, if both have more then 3 entries
         if neighbor_fields[0].count >= 3 and neighbor_fields[1].count >= 3
@@ -108,10 +102,10 @@ module Ld30
           if fields.count >= 3
             fields.each do |field|
               # polppeldops
-              @panels.set_field(field[0], field[1], field[2], "")
+              @panels.set_field(field, "")
             end
-            fill_up_fields(fields, c_position[0],
-              c_position[1]-f_position[1],  c_position[2]-f_position[2])
+            fill_up_fields(fields, pos_f1[0],
+              pos_f1[1]-pos_f2[1],  pos_f1[2]-pos_f2[2])
           end
         end
 
@@ -140,9 +134,7 @@ module Ld30
       visited               = {}
       visited[position]     = true
 
-      unless @panels.field(position[0], position[1], position[2]).
-          class_name.include? value
-
+      unless @panels.field(position).class_name.include? value
         visited[old_position] = true
       end
 
@@ -153,9 +145,7 @@ module Ld30
             visited[successor] = true
 
             # see if it has the same class
-            if @panels.field(successor[0], successor[1], successor[2]).
-                class_name.include? value
-
+            if @panels.field(successor).class_name.include? value
               # add to found list
               frontier.push successor
               found.push successor
@@ -209,16 +199,16 @@ module Ld30
         entries = Array()
         (0..(FIELD_SIZE-1)).each do |field|
           if y_direction == 0
-            entry = @panels.field(panel_no, field, row).class_name
+            entry = @panels.field([panel_no, field, row]).class_name
           else
-            entry = @panels.field(panel_no, row, field).class_name
+            entry = @panels.field([panel_no, row, field]).class_name
           end
           entries.push entry unless entry.empty?
           # then empty field
           if y_direction == 0
-            @panels.set_field(panel_no, field, row, "")
+            @panels.set_field([panel_no, field, row], "")
           else
-            @panels.set_field(panel_no, row, field, "")
+            @panels.set_field([panel_no, row, field], "")
           end
         end
         # then refill the row
@@ -226,9 +216,9 @@ module Ld30
           field = FIELD_SIZE-1
           entries.reverse.each do |entry|
             if y_direction == 0
-              @panels.set_field(panel_no, field, row, entry)
+              @panels.set_field([panel_no, field, row], entry)
             else
-              @panels.set_field(panel_no, row, field, entry)
+              @panels.set_field([panel_no, row, field], entry)
             end
             field = field-1
           end
@@ -236,9 +226,9 @@ module Ld30
           field = 0
           entries.each do |entry|
             if y_direction == 0
-              @panels.set_field(panel_no, field, row, entry)
+              @panels.set_field([panel_no, field, row], entry)
             else
-              @panels.set_field(panel_no, row, field, entry)
+              @panels.set_field([panel_no, row, field], entry)
             end
             field = field+1
           end
@@ -255,8 +245,8 @@ module Ld30
         (0..(FIELD_SIZE-1)).each do |row_no|
           (0..(FIELD_SIZE-1)).each do |column_no|
             # if field is empty choose a random indeference and put it in
-            if @panels.field(panel_no, row_no, column_no).class_name.empty?
-              @panels.set_field(panel_no, row_no, column_no,
+            if @panels.field([panel_no, row_no, column_no]).class_name.empty?
+              @panels.set_field([panel_no, row_no, column_no],
                 INDEFERENCES[rand(INDEFERENCES.count)])
             end
           end
@@ -265,10 +255,9 @@ module Ld30
     end
 
     def change_field_contents(field1, field2)
-      field2_value = @panels.field(field2[0], field2[1], field2[2]).class_name
-      @panels.set_field(field2[0], field2[1], field2[2],
-        @panels.field(field1[0], field1[1], field1[2]).class_name)
-      @panels.set_field(field1[0], field1[1], field1[2], field2_value)
+      field2_value = @panels.field(field2).class_name
+      @panels.set_field(field2, @panels.field(field1).class_name)
+      @panels.set_field(field1, field2_value)
     end
 
   end
