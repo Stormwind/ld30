@@ -27,17 +27,7 @@ module Ld30
       end
 
       # Fill up all the empty fields with indeferences
-      (0..(PANELS_COUNT-1)).each do |panel_no|
-        (0..(FIELD_SIZE-1)).each do |row_no|
-          (0..(FIELD_SIZE-1)).each do |column_no|
-            # if field is empty choose a random indeference and put it in
-            if @panels.field(panel_no, row_no, column_no).class_name.empty?
-              @panels.set_field(panel_no, row_no, column_no,
-                INDEFERENCES[rand(INDEFERENCES.count)])
-            end
-          end
-        end
-      end
+      fill_up_empty_fields
 
     end
 
@@ -227,8 +217,25 @@ module Ld30
           end
         end
       end
+      # Fill up all the empty fields with indeferences
+      fill_up_empty_fields
     end
 
+
+    # fill up empty fields
+    def fill_up_empty_fields
+      (0..(PANELS_COUNT-1)).each do |panel_no|
+        (0..(FIELD_SIZE-1)).each do |row_no|
+          (0..(FIELD_SIZE-1)).each do |column_no|
+            # if field is empty choose a random indeference and put it in
+            if @panels.field(panel_no, row_no, column_no).class_name.empty?
+              @panels.set_field(panel_no, row_no, column_no,
+                INDEFERENCES[rand(INDEFERENCES.count)])
+            end
+          end
+        end
+      end
+    end
 
   end
 
