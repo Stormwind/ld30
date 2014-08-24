@@ -31,6 +31,22 @@ module Ld30
       position_of Element.find("#"+id.to_s)
     end
 
-  end
+    def field_by_id(id)
+      Element.find("#"+id.to_s)
+    end
 
+    def somebody_out_there?
+      if Element.find(".lisa, .ralf, .otto, .bernadette, .fridolin, .michael,"+
+        " .susanne, .karl, .josephine, .mia").empty?
+        return false
+      end
+
+      true
+    end
+
+    def empty_fields pattern
+      Element.find(pattern).class_name = ""
+    end
+
+  end
 end

@@ -16,11 +16,13 @@ module Ld30
 
       # start a new game
       # current level is 1
-      start_level 1
+      @current_level = 0
+      start_level
 
     end
 
-    def start_level number
+    def start_level
+      number = @current_level+1
       cleanup_level unless number == 1
 
       # Make a local clone of the persons list
@@ -50,10 +52,19 @@ module Ld30
         end
       end
 
+      @current_level = number
     end
 
     def cleanup_level
-      # write some code here
+      # remove all interchanger
+      (0..1).each do |panel_no|
+        INTERCHANGER.each do |changer|
+          @panels.field_by_id(changer+"p"+(panel_no+1).to_s).id = ""
+        end
+      end
+
+      # remove all indeferences
+      @panels.empty_fields "."+INDEFERENCES.join(", .")
     end
 
     def random_empty_field= value
@@ -113,6 +124,13 @@ module Ld30
             fill_up_fields(fields, pos_f1[0],
               pos_f1[1]-pos_f2[1],  pos_f1[2]-pos_f2[2])
           end
+        end
+
+        # End of level?
+        # If there is no more person on the gamefield. The level ends.
+        unless @panels.somebody_out_there?
+          start_level
+          return true
         end
 
         # Exchange content of the interchangers
