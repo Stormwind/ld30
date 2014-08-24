@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="64"
+   height="64"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="susanne.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="8"
+     inkscape:cx="21"
+     inkscape:cy="28.250945"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1515"
+     inkscape:window-height="767"
+     inkscape:window-x="255"
+     inkscape:window-y="178"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-988.36218)">
+    <path
+       style="fill:#ffb949;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       d="M 31.8125 2.125 C 27.497775 2.125 24 6.0425086 24 10.875 C 24 14.9889 26.55292 18.408447 29.96875 19.34375 L 28.5 23.625 L 7.625 25.75 L 7.75 30.5 L 25.25 30.875 L 17.25 58.5 L 25.875 58.75 L 30.375 41.25 L 31.875 41.125 L 33.375 59.25 L 43.125 58.875 L 37.625 30.125 L 57.125 30 L 56.75 23.75 L 37 23.25 L 35.0625 18.8125 C 37.746929 17.427731 39.625 14.402219 39.625 10.875 C 39.625 6.0425086 36.127225 2.125 31.8125 2.125 z "
+       transform="translate(0,988.36218)"
+       id="path2985" />
+  </g>
+</svg>

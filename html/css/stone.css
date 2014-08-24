@@ -10,32 +10,62 @@
 .lisa {
   background: url(../graphics/lisa.svg);
 }
+.lisa.clicked {
+  background: url(../graphics/clicked-bg.png), url(../graphics/lisa.svg);
+}
 .ralf {
   background: url(../graphics/ralf.svg);
+}
+.ralf.clicked {
+  background: url(../graphics/clicked-bg.png), url(../graphics/ralf.svg);
 }
 .otto {
   background: url(../graphics/otto.svg);
 }
+.otto.clicked {
+  background: url(../graphics/clicked-bg.png), url(../graphics/otto.svg);
+}
 .bernadette {
   background: url(../graphics/bernadette.svg);
+}
+.bernadette.clicked {
+  background: url(../graphics/clicked-bg.png), url(../graphics/bernadette.svg);
 }
 .fridolin {
   background: url(../graphics/fridolin.svg);
 }
+.fridolin.clicked {
+  background: url(../graphics/clicked-bg.png), url(../graphics/fridolin.svg);
+}
 .michael {
   background: url(../graphics/michael.svg);
+}
+.michael.clicked {
+  background: url(../graphics/clicked-bg.png), url(../graphics/michael.svg);
 }
 .susanne {
   background: url(../graphics/susanne.svg);
 }
+.susanne.clicked {
+  background: url(../graphics/clicked-bg.png), url(../graphics/susanne.svg);
+}
 .karl {
   background: url(../graphics/karl.svg);
+}
+.karl.clicked {
+  background: url(../graphics/clicked-bg.png), url(../graphics/karl.svg);
 }
 .josephine {
   background: url(../graphics/josephine.svg);
 }
+.josephine.clicked {
+  background: url(../graphics/clicked-bg.png), url(../graphics/josephine.svg);
+}
 .mia {
   background: url(../graphics/mia.svg);
+}
+.mia.clicked {
+  background: url(../graphics/clicked-bg.png), url(../graphics/mia.svg);
 }
 
 
