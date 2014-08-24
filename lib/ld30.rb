@@ -6,6 +6,7 @@ require "opal-jquery"
 
 require 'ld30/game'
 require 'ld30/panels'
+require 'ld30/score'
 
 game = Ld30::Game.new
 
