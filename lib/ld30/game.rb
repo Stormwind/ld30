@@ -3,8 +3,10 @@ module Ld30
   class Game
 
     INDEFERENCES = ["indef1", "indef2", "indef3", "indef4"]
+    INTERCHANGER = ["intrchngr1", "intrchngr2", "intrchngr3", "intrchngr4",
+                   "intrchngr5"]
     PANELS_COUNT = 2
-    FIELD_SIZE  = 8
+    FIELD_SIZE   = 8
 
     def initialize
       @panels = Panels.new
@@ -30,19 +32,14 @@ module Ld30
       fill_up_empty_fields
 
       # get random id-less field in given panel and place interchanger there
-      interchanger = [
-        ["intrchngr1p1", "intrchngr2p1", "intrchngr3p1", "intrchngr4p1",
-          "intrchngr5p1"],
-        ["intrchngr1p2", "intrchngr2p2", "intrchngr3p2", "intrchngr4p2",
-          "intrchngr5p2"]
-      ]
       (0..1).each do |panel_no|
-        interchanger[panel_no].each do |changer|
+        INTERCHANGER.each do |changer|
           loop do
             row_no    = rand(FIELD_SIZE)
             column_no = rand(FIELD_SIZE)
             if @panels.field(panel_no, row_no, column_no).id.empty?
-              @panels.field(panel_no, row_no, column_no).id = changer
+              @panels.field(panel_no, row_no, column_no).id =
+                changer+"p"+(panel_no+1).to_s
               break
             end
           end
@@ -116,6 +113,14 @@ module Ld30
             fill_up_fields(fields, c_position[0],
               c_position[1]-f_position[1],  c_position[2]-f_position[2])
           end
+        end
+
+        # Exchange content of the interchangers
+        INTERCHANGER.each do |changer|
+          change_field_contents(
+            @panels.position_by_id(changer+"p1"),
+            @panels.position_by_id(changer+"p2")
+          )
         end
 
         true

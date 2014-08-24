@@ -25,7 +25,11 @@ module Ld30
       [1-field.parent.parent.parent.find("~ table").count,
         7-field.parent.find("~ tr").count,
         7-field.find("~ td").count]
-      end
+    end
+
+    def position_by_id(id)
+      position_of Element.find("#"+id.to_s)
+    end
 
   end
 
