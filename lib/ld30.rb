@@ -25,7 +25,7 @@ Element.find('#panels').on(:click, 'td') do |event|
     success = game.exchange(field, clicked)
 
     # Remove "clicked"-class from the fields
-    clicked.remove_class "clicked"
+    Element.find('.clicked').remove_class "clicked"
   end
 
   # Mark current field as "clicked"
