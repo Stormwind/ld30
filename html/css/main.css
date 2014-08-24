@@ -1,11 +1,12 @@
 table {
-  border-collapse: collapse;
+  /* border-collapse: collapse; */
   display: inline-block;
   margin: 64px;
+  background-color: #2f2f2f;
 }
 
 td {
-  border: black 1px solid;
+  border: black 3px solid;
   width: 64px; /* make this better */
   height: 64px; /* make this better */
 }
@@ -20,5 +21,7 @@ td {
 }
 
 .clicked {
-  border: green 2px dashed;
+  background: url(../graphics/clicked-bg.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }

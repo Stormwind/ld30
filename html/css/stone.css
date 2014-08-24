@@ -18,3 +18,24 @@
 .indef4 {
   background-color: purple;
 }
+
+#intrchngr1p1, #intrchngr1p2 {
+  border: fuchsia 3px solid;
+  border-radius: 24px;
+}
+#intrchngr2p1, #intrchngr2p2 {
+  border: olive 3px solid;
+  border-radius: 24px;
+}
+#intrchngr3p1, #intrchngr3p2 {
+  border: lawngreen 3px solid;
+  border-radius: 24px;
+}
+#intrchngr4p1, #intrchngr4p2 {
+  border: palevioletred 3px solid;
+  border-radius: 24px;
+}
+#intrchngr5p1, #intrchngr5p2 {
+  border: royalblue 3px solid;
+  border-radius: 24px;
+}
